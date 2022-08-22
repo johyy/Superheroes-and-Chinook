@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS Superhero, Assistant, Power;
+
+CREATE TABLE Superhero (
+	id INT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	alias VARCHAR(20) NOT NULL,
+	origin VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Assistant (
+	id INT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Power (
+	id INT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	description TEXT NOT NULL
+);
