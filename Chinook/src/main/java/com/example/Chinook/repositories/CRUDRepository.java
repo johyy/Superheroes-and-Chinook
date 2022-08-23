@@ -1,4 +1,4 @@
-package com.example.Chinook.repository;
+package com.example.Chinook.repositories;
 
 import java.util.List;
 
