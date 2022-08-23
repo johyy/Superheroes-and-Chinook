@@ -1,1 +1,1 @@
-ALTER TABLE assistant ADD COLUMN superhero_id int REFERENCES Superhero;
+ALTER TABLE assistant ADD superhero_id int REFERENCES Superhero;

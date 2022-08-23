@@ -13,7 +13,8 @@ CREATE TABLE Assistant (
 );
 
 CREATE TABLE Power (
-	id INT PRIMARY KEY,
+	id SERIAL NOT NULL,
 	name VARCHAR(50) NOT NULL,
-	description TEXT NOT NULL
+	description TEXT NOT NULL,
+    PRIMARY KEY (id)
 );

@@ -1,5 +1,3 @@
-INSERT INTO Assistant VALUES('Superwoman', 1);
-
-INSERT INTO Assistant VALUES('Robin', 2);
-
-INSERT INTO Assistant VALUES('Wonder Girl', 3);
+INSERT INTO Assistant VALUES(1,'Superwoman');
+INSERT INTO Assistant VALUES(2,'Robin');
+INSERT INTO Assistant VALUES(3,'Wonder Girl');
