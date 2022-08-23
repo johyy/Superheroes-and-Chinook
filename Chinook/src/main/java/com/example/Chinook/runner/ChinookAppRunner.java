@@ -24,7 +24,17 @@ public class ChinookAppRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         List<Customer> customerList = customerRepository.findAll();
         customerList.forEach(System.out::println);
-        System.out.println(customerRepository.findById(1));
+        System.out.println("");
+        System.out.println(customerRepository.findById(5));
+        System.out.println("");
+        System.out.println(customerRepository.findByName("Emma"));
+        System.out.println("");
+        List<Customer> customerPageList = customerRepository.findAPageOfCustomers(5, 3);
+        customerPageList.forEach(System.out::println);
+        System.out.println("");
+        Customer sanna = new Customer (100, "Sanna", "Marin", "Finland", "00010", "04012323423", "sanna.marin@eduskunta.fi");
+        customerRepository.insert(sanna);
+        System.out.println(customerRepository.findByName("Marin"));
     }
 }
 

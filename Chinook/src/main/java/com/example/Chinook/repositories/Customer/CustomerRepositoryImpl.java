@@ -77,16 +77,87 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             e.printStackTrace();
         }
         return customer;
-
     }
 
+    public Customer findByName(String name) {
+        String sql = "SELECT * FROM customer WHERE first_name LIKE ? OR last_name LIKE ?";
+        Customer customer = null;
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            // Write statement
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, name);
+            // Execute statement
+            ResultSet result = statement.executeQuery();
+            // Handle result
+            while (result.next()) {
+                customer = new Customer(
+                        result.getInt("customer_id"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("country"),
+                        result.getString("postal_code"),
+                        result.getString("phone"),
+                        result.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
 
-    @Override
-    public int insert(Object object) {
-        return 0;
+    public List<Customer> findAPageOfCustomers(int limit, int offset) {
+        String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT ? OFFSET ?";
+        List<Customer> customers = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            // Write statement
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            // Execute statement
+            ResultSet result = statement.executeQuery();
+            // Handle result
+            while (result.next()) {
+                Customer customer = new Customer(
+                        result.getInt("customer_id"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("country"),
+                        result.getString("postal_code"),
+                        result.getString("phone"),
+                        result.getString("email")
+                );
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
     }
 
     @Override
+    public boolean insert(Customer customer) {
+        String sql = "INSERT INTO customer (first_name, last_name, country, postal_code, phone, email) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, customer.first_name());
+            statement.setString(2, customer.last_name());
+            statement.setString(3, customer.country());
+            statement.setString(4, customer.postal_code());
+            statement.setString(5, customer.phone());
+            statement.setString(6, customer.email());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+        @Override
     public int update(Object object) {
         return 0;
     }
