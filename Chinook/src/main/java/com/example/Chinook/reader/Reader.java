@@ -5,8 +5,14 @@ import java.util.Scanner;
 public class Reader {
 
     public String read(String question) {
-        System.out.println(question);
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        try {
+            System.out.println(question);
+            Scanner scanner = new Scanner(System.in);
+            return scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Not and acceptable value");
+            e.printStackTrace();
+        }
+        return null;
     }
 }
