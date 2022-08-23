@@ -14,4 +14,5 @@ public interface CustomerRepository extends CRUDRepository {
     Customer findById(int id);
     Customer findByName(String name);
     List<Customer> findAPageOfCustomers(int limit, int offset);
+    boolean insert(Customer customer);
 }
