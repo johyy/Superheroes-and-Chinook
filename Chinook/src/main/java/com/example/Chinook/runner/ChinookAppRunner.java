@@ -22,10 +22,9 @@ public class ChinookAppRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        customerRepository.test();
         List<Customer> customerList = customerRepository.findAll();
         customerList.forEach(System.out::println);
-
+        System.out.println(customerRepository.findById(1));
     }
 }
 
