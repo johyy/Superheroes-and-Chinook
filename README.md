@@ -12,7 +12,6 @@ of the backend part of the [Noroff](https://www.noroff.no/en/) Full-Stack develo
 - [Background](#background)
 - [Install](#install)
 - [Maintainers](#maintainers)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Background
@@ -49,8 +48,8 @@ Clone repository via `git clone`.
 
 ## Maintainers
 
-[@JonnaHyypiä](https://gitlab.com/johyy)
-[@SamiSihvonen](https://gitlab.com/sami_sihvonen)
+[@Jonna Hyypiä](https://gitlab.com/johyy)
+[@Sami Sihvonen](https://gitlab.com/sami_sihvonen)
 
 ## License
 
