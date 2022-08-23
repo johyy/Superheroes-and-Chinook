@@ -52,6 +52,51 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    public int insert(Customer customer) {
+        String sql = "INSERT INTO customer (first_name, last_name, country, postal_code, phone, email) VALUES (?,?,?,?,?,?)";
+        int rowsAffect = 0;
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            // Write statement
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, customer.first_name());
+            statement.setString(2, customer.last_name());
+            statement.setString(3, customer.country());
+            statement.setString(4, customer.postal_code());
+            statement.setString(5, customer.phone());
+            statement.setString(6, customer.email());
+            // Execute statement
+            rowsAffect = statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffect;
+    }
+
+
+@Override
+public int update(Integer id, String phone, String email) {
+
+    String sql = "UPDATE customer SET phone = ?, email = ? WHERE customer_id= ?";
+    int rowsAffect = 0;
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        if (!id.equals(id))
+            System.out.println("Cannot update database with wrong id");
+        // Write statement
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setString(1, phone);
+        preparedStatement.setString(2, email);
+        preparedStatement.setInt(3, id);
+        rowsAffect = preparedStatement.executeUpdate();
+
+    }catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return rowsAffect;
+}
+
+
+
+    @Override
     public Object findById(Object id) {
         return null;
     }

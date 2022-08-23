@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface CustomerRepository extends CRUDRepository {
 
+    int insert(Customer customer);
+
+    int update(Integer id, String phone, String email);
+
     void test();
     List<Customer> findAll();
 }
