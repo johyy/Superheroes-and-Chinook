@@ -156,6 +156,25 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return true;
     }
+    @Override
+    public int update(Integer id, String phone, String email) {
+
+        String sql = "UPDATE customer SET  phone = ?, email = ? WHERE customer_id= ?";
+        int rowsAffect = 0;
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            if (!id.equals(id))
+                System.out.println(" The Id you entered does not match customer Id");
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, phone);
+            preparedStatement.setString(2, email);
+            preparedStatement.setInt(3, id);
+            rowsAffect = preparedStatement.executeUpdate();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffect;
+    }
 
         @Override
     public int update(Object object) {
