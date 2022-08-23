@@ -58,8 +58,9 @@ public class ChinookAppRunner implements ApplicationRunner {
         String email = reader.read("Set customer's e-mail address: ");
         Customer newCustomer = new Customer (0, first_name, last_name, country, postal_code, phone, email);
         customerRepository.insert(newCustomer);
+        Customer findNewCustomer = customerRepository.findByName(newCustomer.first_name());
         System.out.println("Added a new customer!");
-        System.out.println("Customer's id: " + newCustomer.customer_id() + ". Name: " + newCustomer.first_name() + " " + newCustomer.last_name() + ". Country: " + newCustomer.country() + ". Postal code: " + newCustomer.postal_code() + ". Phone number and e-mail address: " + newCustomer.phone() + ", " + newCustomer.email() + ".");
+        System.out.println("Customer's id: " + findNewCustomer.customer_id() + ". Name: " + findNewCustomer.first_name() + " " + findNewCustomer.last_name() + ". Country: " + findNewCustomer.country() + ". Postal code: " + findNewCustomer.postal_code() + ". Phone number and e-mail address: " + findNewCustomer.phone() + ", " + findNewCustomer.email() + ".");
     }
 }
 
