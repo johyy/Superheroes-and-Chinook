@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface CustomerRepository extends CRUDRepository {
 
-
     void test();
     List<Customer> findAll();
     Customer findById(int id);
