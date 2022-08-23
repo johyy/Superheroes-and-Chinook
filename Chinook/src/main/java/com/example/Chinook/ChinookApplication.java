@@ -16,7 +16,6 @@ public class ChinookApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChinookApplication.class, args);
-
 	}
 
 }
