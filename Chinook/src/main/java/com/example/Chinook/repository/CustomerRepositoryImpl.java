@@ -1,5 +1,6 @@
-package com.example.Chinook.models;
+package com.example.Chinook.repository;
 
+import com.example.Chinook.models.Customer;
 import com.example.Chinook.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -49,7 +50,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             return customers;
         }
 
-
+    @Override
+    public List<Customer> getAllCustomers() {
+        return null;
+    }
 
     @Override
     public Customer findById(Integer id) {
@@ -75,6 +79,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public int deleteById(Integer id) {
         return 0;
     }
+
 
     public void test() {
         try (Connection conn = DriverManager.getConnection(url, username, password);) {
