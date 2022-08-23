@@ -28,6 +28,9 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println(customerRepository.findById(5));
         System.out.println("");
         System.out.println(customerRepository.findByName("Emma"));
+        System.out.println("");
+        List<Customer> customerPageList = customerRepository.findAPageOfCustomers(5, 3);
+        customerPageList.forEach(System.out::println);
     }
 }
 
