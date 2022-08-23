@@ -10,10 +10,7 @@ public class ChinookDao {
     private String username = "postgres";
     private String password = "postgres";
 
-    public ChinookDAO() {
-    }
-
-    public ChinookDAO(String url, String username, String password) {
+    public void ChinookDAO(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
