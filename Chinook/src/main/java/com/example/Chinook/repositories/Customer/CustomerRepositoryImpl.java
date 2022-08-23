@@ -77,9 +77,35 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             e.printStackTrace();
         }
         return customer;
-
     }
 
+    public Customer findByName(String name) {
+        String sql = "SELECT * FROM customer WHERE first_name LIKE ? OR last_name LIKE ?";
+        Customer customer = null;
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            // Write statement
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, name);
+            // Execute statement
+            ResultSet result = statement.executeQuery();
+            // Handle result
+            while (result.next()) {
+                customer = new Customer(
+                        result.getInt("customer_id"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("country"),
+                        result.getString("postal_code"),
+                        result.getString("phone"),
+                        result.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
 
     @Override
     public int insert(Object object) {
