@@ -1,8 +1,11 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
 
-build-job:       # This job runs in the build stage.
+build-job:       # This job runs in the build stage when commiting on main.
   stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
