@@ -81,7 +81,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return customer;
     }
-
+    /**
+     * @param name
+     * @return
+     */
     public Customer findByName(String name) {
         String sql = "SELECT * FROM customer WHERE first_name LIKE ? OR last_name LIKE ?";
         Customer customer = null;
@@ -109,7 +112,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return customer;
     }
-
+    /**
+     * @param limit
+     * @param offset
+     * @return
+     */
     public List<Customer> findAPageOfCustomers(int limit, int offset) {
         String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT ? OFFSET ?";
         List<Customer> customers = new ArrayList<>();
@@ -300,7 +307,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public int deleteById(Object id) {
         return 0;
     }
-
+    /**
+     * @param id
+     * @return
+     */
     @Override
     public int deleteById(Integer id) {
         String sql = "DELETE FROM customer WHERE customer_id= ?";

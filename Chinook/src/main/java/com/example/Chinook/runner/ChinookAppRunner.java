@@ -32,6 +32,8 @@ public class ChinookAppRunner implements ApplicationRunner {
         for (Customer customer : customerList) {
             System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
         }
+
+        //Sami's part
         System.out.println("");
         System.out.println("Customers per country: " + customerRepository.customersPerCountry());
         System.out.println("");
@@ -45,6 +47,7 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println(customerRepository.findById(uid)+ "Customer with id "+ uid + "will be deleted");
         customerRepository.deleteById(uid);
         System.out.println("");
+        //Sami's part
 
         int id = parseInt(reader.read("What is the ID number of the customer You want to find?"));
         Customer idCustomer = customerRepository.findById(id);
