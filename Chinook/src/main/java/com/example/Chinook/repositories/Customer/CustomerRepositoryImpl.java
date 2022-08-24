@@ -13,6 +13,10 @@ import java.util.List;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
+    /**
+     * This is a class to implement working methods in CustomerRepository.
+     * @param args
+     */
     private final String url;
     private final String username;
     private final String password;
@@ -81,11 +85,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return customer;
     }
-    /**
-     * @param name
-     * @return
-     */
+
     public Customer findByName(String name) {
+        /**
+         * Find customer by name.
+         * @param name
+         * @return Customer
+         */
+
         String sql = "SELECT * FROM customer WHERE first_name LIKE ? OR last_name LIKE ?";
         Customer customer = null;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
@@ -114,6 +121,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public List<Customer> findAPageOfCustomers(int limit, int offset) {
+        /**
+         * Find limited amount of customers from specific offset on.
+         * @param limit, offset
+         * @return List<>
+         */
         String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT ? OFFSET ?";
         List<Customer> customers = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
@@ -122,19 +134,20 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             statement.setInt(1, limit);
             statement.setInt(2, offset);
             // Execute statement
-            ResultSet result = statement.executeQuery();
-            // Handle result
-            while (result.next()) {
-                Customer customer = new Customer(
-                        result.getInt("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("last_name"),
-                        result.getString("country"),
-                        result.getString("postal_code"),
-                        result.getString("phone"),
-                        result.getString("email")
-                );
-                customers.add(customer);
+            try (ResultSet result = statement.executeQuery()) {
+                // Handle result
+                while (result.next()) {
+                    Customer customer = new Customer(
+                            result.getInt("customer_id"),
+                            result.getString("first_name"),
+                            result.getString("last_name"),
+                            result.getString("country"),
+                            result.getString("postal_code"),
+                            result.getString("phone"),
+                            result.getString("email")
+                    );
+                    customers.add(customer);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,7 +190,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return rowsAffect;
     }
 
-    @Override
     public CustomerCountry customersPerCountry() {
         CustomerCountry customersPerCountry = null;
         String sql = "SELECT COUNT(customer_id) as total_customers, country FROM customer " +
@@ -193,8 +205,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 customersPerCountry= new CustomerCountry(
                         result.getString("country"),
                         result.getInt("total_customers")
-
-
                 );
             }
         } catch (SQLException e) {
@@ -203,7 +213,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customersPerCountry;
     }
 
-    @Override
     public CustomerSpender customerSpender() {
         CustomerSpender customerSpender = null;
         String sql = "SELECT (customer.customer_id), customer.first_name, customer.last_name, SUM(invoice.total) as total\n" +
@@ -230,7 +239,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customerSpender;
     }
 
-    @Override
     public List<CustomerGenre> customerGenre(int Customer_id) {
 
         List<CustomerGenre> customerMostPopGenre = new ArrayList<>();
@@ -283,6 +291,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public void alterInvoice() {
+        /**
+         * Alter table invoice so that customer can be deleted.
+         */
         String sql = "ALTER TABLE invoice DROP CONSTRAINT fk_invoice_customer_id, ADD CONSTRAINT fk_invoice_customer_id FOREIGN KEY (customer_id) REFERENCES customer ON DELETE CASCADE";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -293,6 +304,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public void alterInvoiceLine () {
+        /**
+         * Alter table invoice_line so that invoice can be deleted and by that a customer can be deleted.
+         */
         String sql = "ALTER TABLE invoice_line DROP CONSTRAINT fk_invoice_line_invoice_id, ADD CONSTRAINT fk_invoice_line_invoice_id FOREIGN KEY (invoice_id) REFERENCES invoice ON DELETE CASCADE";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);

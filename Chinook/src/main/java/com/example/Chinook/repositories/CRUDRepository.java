@@ -8,17 +8,10 @@ import com.example.Chinook.models.CustomerSpender;
 import java.util.List;
 
 public interface CRUDRepository <T, U>{
-    List<T> findAll();
-    T findById(int id);
-    T findByName(String name);
-    List<T> findAPageOfCustomers(int limit, int offset);
+    List<Customer> findAll();
+    Customer findById(int id);
     boolean insert(Customer customer);
     int update(int id , String phone , String email);
     int deleteById(int id);
-    CustomerCountry customersPerCountry();
-    CustomerSpender customerSpender();
-    List<CustomerGenre> customerGenre (int Customer_id);
-
-
 
 }

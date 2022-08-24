@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public class Reader {
     /**
-* This is a class for reading input from the keyboard.
+     * This is a class for reading input from the keyboard.
      * @param question
      * @return String
-*/
+     * @exception Exception if wrong type of input.
+     */
     public String read(String question) {
         /**
-         * This is the main method
-         * which is very important for
-         * execution for a java program.
+         * Read input with printing the question.
+         * Return reading input.
          */
         try {
             System.out.println(question);

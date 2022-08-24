@@ -26,12 +26,7 @@ public class ChinookAppRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Reader reader = new Reader();
-
-        List<Customer> customerList = customerRepository.findAll();
-        System.out.println("All customers:");
-        for (Customer customer : customerList) {
-            System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
-        }
+        getAllCustomers();
 
         //Sami's part
         System.out.println("");
@@ -39,7 +34,8 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("");
         System.out.println("Top Genre: " + customerRepository.customerGenre(2));
         System.out.println("");
-        System.out.println("Update customer " + customerRepository.findById(2) + " successfully" + customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi"));
+        System.out.println("Update customer " + customerRepository.findById(2) + " successfully");
+        customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi");
         System.out.println("");
         System.out.println("Customer who is the highest spender: " + customerRepository.customerSpender());
         //Sami's part
@@ -76,12 +72,21 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("Customer's id: " + findNewCustomer.customer_id() + ". Name: " + findNewCustomer.first_name() + " " + findNewCustomer.last_name() + ". Country: " + findNewCustomer.country() + ". Postal code: " + findNewCustomer.postal_code() + ". Phone number and e-mail address: " + findNewCustomer.phone() + ", " + findNewCustomer.email() + ".");
 
         //Sami's part
+        System.out.println("");
         int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
         System.out.println(customerRepository.findById(uid));
         customerRepository.deleteById(uid);
         System.out.println("Customer with id " + uid + " will be deleted");
         //Sami's part
 
+        System.out.println("");
+        getAllCustomers();
+    }
+
+    private void getAllCustomers() {
+        /**
+         * Print all customers neatly.
+         */
         List<Customer> newCustomerList = customerRepository.findAll();
         System.out.println("All customers:");
         for (Customer customer : newCustomerList) {
