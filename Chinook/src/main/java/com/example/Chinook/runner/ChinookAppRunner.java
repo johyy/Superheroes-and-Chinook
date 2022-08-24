@@ -39,15 +39,12 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("");
         System.out.println("Top Genre: " + customerRepository.customerGenre(2));
         System.out.println("");
-        System.out.println("Update customer "+ customerRepository.findById(2) + " successfully" +customerRepository.update(2,"+358505005005", "samarin@eduskunta.fi"));
+        System.out.println("Update customer " + customerRepository.findById(2) + " successfully" + customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi"));
         System.out.println("");
         System.out.println("Customer who is the highest spender: " + customerRepository.customerSpender());
-        System.out.println("");
-        int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
-        System.out.println(customerRepository.findById(uid)+ "Customer with id "+ uid + "will be deleted");
-        System.out.println("");
         //Sami's part
 
+        System.out.println("");
         int id = parseInt(reader.read("What is the ID number of the customer You want to find?"));
         Customer idCustomer = customerRepository.findById(id);
         System.out.println("Customer's id: " + idCustomer.customer_id() + ". Name: " + idCustomer.first_name() + " " + idCustomer.last_name() + ". Country: " + idCustomer.country() + ". Postal code: " + idCustomer.postal_code() + ". Phone number and e-mail address: " + idCustomer.phone() + ", " + idCustomer.email() + ".");
@@ -72,12 +69,24 @@ public class ChinookAppRunner implements ApplicationRunner {
         String postal_code = reader.read("Set customer's postal code: ");
         String phone = reader.read("Set customer's phone number: ");
         String email = reader.read("Set customer's e-mail address: ");
-        Customer newCustomer = new Customer (0, first_name, last_name, country, postal_code, phone, email);
+        Customer newCustomer = new Customer(0, first_name, last_name, country, postal_code, phone, email);
         customerRepository.insert(newCustomer);
         Customer findNewCustomer = customerRepository.findByName(newCustomer.first_name());
         System.out.println("Added a new customer!");
         System.out.println("Customer's id: " + findNewCustomer.customer_id() + ". Name: " + findNewCustomer.first_name() + " " + findNewCustomer.last_name() + ". Country: " + findNewCustomer.country() + ". Postal code: " + findNewCustomer.postal_code() + ". Phone number and e-mail address: " + findNewCustomer.phone() + ", " + findNewCustomer.email() + ".");
 
+        //Sami's part
+        int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
+        System.out.println(customerRepository.findById(uid));
+        customerRepository.deleteById(uid);
+        System.out.println("Customer with id " + uid + " will be deleted");
+        //Sami's part
+
+        List<Customer> newCustomerList = customerRepository.findAll();
+        System.out.println("All customers:");
+        for (Customer customer : newCustomerList) {
+            System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
+        }
     }
 }
 

@@ -12,14 +12,13 @@ public interface CRUDRepository <T, U>{
     T findById(int id);
     T findByName(String name);
     List<T> findAPageOfCustomers(int limit, int offset);
-    int insert(T customer);
-    int update(U id , String phone , String email);
-
+    boolean insert(Customer customer);
+    int update(int id , String phone , String email);
+    int deleteById(int id);
     CustomerCountry customersPerCountry();
     CustomerSpender customerSpender();
-
     List<CustomerGenre> customerGenre (int Customer_id);
 
-    int deleteById(U id);
+
 
 }

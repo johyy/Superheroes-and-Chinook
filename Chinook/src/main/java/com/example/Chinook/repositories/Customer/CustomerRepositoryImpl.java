@@ -112,11 +112,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return customer;
     }
-    /**
-     * @param limit
-     * @param offset
-     * @return
-     */
+
     public List<Customer> findAPageOfCustomers(int limit, int offset) {
         String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT ? OFFSET ?";
         List<Customer> customers = new ArrayList<>();
@@ -146,26 +142,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customers;
     }
 
-    /**
-     * @param customer
-     * @return
-     */
-    @Override
-    public int insert(Object customer) {
-        return 0;
-    }
-
-    /**
-     * @param id
-     * @param phone
-     * @param email
-     * @return
-     */
-    @Override
-    public int update(Object id, String phone, String email) {
-        return 0;
-    }
-
     @Override
     public boolean insert(Customer customer) {
         String sql = "INSERT INTO customer (first_name, last_name, country, postal_code, phone, email) VALUES (?, ?, ?, ?, ?, ?)";
@@ -185,16 +161,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return true;
     }
 
-
-
-    /**
-     * @param id
-     * @param phone
-     * @param email
-     * @return
-     */
     @Override
-    public int update(Integer id, String phone, String email) {
+    public int update(int id, String phone, String email) {
         String sql = "UPDATE customer SET  phone = ?, email = ? WHERE customer_id= ?";
         int rowsAffect = 0;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
@@ -208,6 +176,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return rowsAffect;
     }
+
     @Override
     public CustomerCountry customersPerCountry() {
         CustomerCountry customersPerCountry = null;
@@ -234,9 +203,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customersPerCountry;
     }
 
-    /**
-     * @return
-     */
     @Override
     public CustomerSpender customerSpender() {
         CustomerSpender customerSpender = null;
@@ -299,22 +265,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customerMostPopGenre;
     }
 
-    /**
-     * @param id
-     * @return
-     */
     @Override
-    public int deleteById(Object id) {
-        return 0;
-    }
-
-    /**
-     * @param id
-     * @return
-     */
-
-    @Override
-    public int deleteById(Integer id) {
+    public int deleteById(int id) {
+        alterInvoice();
+        alterInvoiceLine();
         String sql = "DELETE FROM customer WHERE customer_id= ?";
         int rowsAffect = 0;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
@@ -322,16 +276,30 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             statement.setInt(1, id);
             rowsAffect = statement.executeUpdate();
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return rowsAffect;
     }
-    public void test() {
-        try (Connection conn = DriverManager.getConnection(url, username, password);) {
-            System.out.println("Connected to Postgres...");
+
+    public void alterInvoice() {
+        String sql = "ALTER TABLE invoice DROP CONSTRAINT fk_invoice_customer_id, ADD CONSTRAINT fk_invoice_customer_id FOREIGN KEY (customer_id) REFERENCES customer ON DELETE CASCADE";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void alterInvoiceLine () {
+        String sql = "ALTER TABLE invoice_line DROP CONSTRAINT fk_invoice_line_invoice_id, ADD CONSTRAINT fk_invoice_line_invoice_id FOREIGN KEY (invoice_id) REFERENCES invoice ON DELETE CASCADE";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
     }
 }

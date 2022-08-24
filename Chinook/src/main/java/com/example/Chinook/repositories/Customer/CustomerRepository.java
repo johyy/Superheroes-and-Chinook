@@ -11,17 +11,13 @@ import java.util.List;
 public interface CustomerRepository extends CRUDRepository {
 
 
-    void test();
     List<Customer> findAll();
     Customer findById(int id);
     Customer findByName(String name);
     List<Customer> findAPageOfCustomers(int limit, int offset);
     boolean insert(Customer customer);
-
-    int update(Integer id, String phone, String email);
-
+    int update(int id, String phone, String email);
     CustomerCountry customersPerCountry();
     List<CustomerGenre> customerGenre(int Customer_id);
-
-    int deleteById(Integer id);
+    int deleteById(int id);
 }
