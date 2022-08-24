@@ -45,7 +45,6 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("");
         int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
         System.out.println(customerRepository.findById(uid)+ "Customer with id "+ uid + "will be deleted");
-        customerRepository.deleteById(uid);
         System.out.println("");
         //Sami's part
 

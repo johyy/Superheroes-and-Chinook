@@ -307,10 +307,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public int deleteById(Object id) {
         return 0;
     }
+
     /**
      * @param id
      * @return
      */
+
     @Override
     public int deleteById(Integer id) {
         String sql = "DELETE FROM customer WHERE customer_id= ?";
