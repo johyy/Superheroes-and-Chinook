@@ -103,15 +103,5 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("Customer with id " + uid + " will be deleted");
     }
 
-
-//        System.out.println("");
-//        System.out.println("Country with the most customers: " + customerRepository.customersPerCountry());
-//        System.out.println("");
-//        System.out.println("Top Genre: " + customerRepository.customerGenre(2));
-//        System.out.println("");
-//        System.out.println("Update customer " + customerRepository.findById(2) + " successfully");
-//        customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi");
-//        System.out.println("");
-//        System.out.println("Customer who is the highest spender: " + customerRepository.customerSpender());
 }
 
