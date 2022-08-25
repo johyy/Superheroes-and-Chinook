@@ -1,3 +1,3 @@
 UPDATE Superhero
-SET Name = 'Ryydman'
-WHERE Name = 'Batman';
+SET alias = 'Ryydman'
+WHERE alias = 'Batman';
