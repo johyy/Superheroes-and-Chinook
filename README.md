@@ -1,4 +1,4 @@
-# Assignment 5: Data Persistence and Access - Chinook and Superheroes
+# Assignment 2: Data Persistence and Access - Chinook and Superheroes
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![Java](https://img.shields.io/badge/-Java-red?logo=java)](https://www.java.com)
@@ -53,4 +53,4 @@ Clone repository via `git clone`.
 
 ## License
 
-MIT © 2022 Jonna Hyypiä,Sami Sihvonen
+MIT © 2022 Jonna Hyypiä, Sami Sihvonen
