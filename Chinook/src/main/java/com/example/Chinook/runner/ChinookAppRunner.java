@@ -99,14 +99,13 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("Customer's id: " + findNewCustomer.customer_id() + ". Name: " + findNewCustomer.first_name() + " " + findNewCustomer.last_name() + ". Country: " + findNewCustomer.country() + ". Postal code: " + findNewCustomer.postal_code() + ". Phone number and e-mail address: " + findNewCustomer.phone() + ", " + findNewCustomer.email() + ".");
     }
 
-    private void updateCustomer() {
-        /**
-         * Update customer's values.
-         */
-        System.out.println("Update customer " + customerRepository.findById(2) + " successfully");
-        customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi");
+    private  void updateCustomer(){
+        Reader reader = new Reader();
+        int uid = parseInt(reader.read("Select id which customer you want to update :"));
+        String num = reader.read("Update customer["+uid+"] phone number: ");
+        String name = reader.read("Update customer email: ");
+        customerRepository.update(uid,num,name);
     }
-
     private void setLimitAndOffset() {
         /**
          * Set a limit and an offset to customer page and print it.
