@@ -14,7 +14,7 @@ public interface CRUDRepository <T, U>{
     List<T> findAPageOfCustomers(int limit, int offset);
     boolean insert(Customer customer);
     int update(int id , String phone , String email);
-    int deleteById(int id);
+    int deleteById(int U);
     CustomerCountry customersPerCountry();
     CustomerSpender customerSpender();
     List<CustomerGenre> customerGenre (int Customer_id);

@@ -26,23 +26,15 @@ public class ChinookAppRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Reader reader = new Reader();
-
-        List<Customer> customerList = customerRepository.findAll();
-        System.out.println("All customers:");
-        for (Customer customer : customerList) {
-            System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
-        }
-
-        //Sami's part
+        getAllCustomers();
         System.out.println("");
-        System.out.println("Customers per country: " + customerRepository.customersPerCountry());
+        System.out.println("Country with the most customers: " + customerRepository.customersPerCountry());
         System.out.println("");
-        System.out.println("Top Genre: " + customerRepository.customerGenre(2));
+        customersTopGenre();
         System.out.println("");
-        System.out.println("Update customer " + customerRepository.findById(2) + " successfully" + customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi"));
+        updateCustomer();
         System.out.println("");
-        System.out.println("Customer who is the highest spender: " + customerRepository.customerSpender());
-        //Sami's part
+        System.out.println("Highest spender customer: " + customerRepository.customerSpender());
 
         System.out.println("");
         int id = parseInt(reader.read("What is the ID number of the customer You want to find?"));
@@ -61,7 +53,6 @@ public class ChinookAppRunner implements ApplicationRunner {
         for (Customer customer : customerPageList) {
             System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
         }
-
         System.out.println("");
         String first_name = reader.read("Set customer's first name: ");
         String last_name = reader.read("Set customer's last name: ");
@@ -75,18 +66,52 @@ public class ChinookAppRunner implements ApplicationRunner {
         System.out.println("Added a new customer!");
         System.out.println("Customer's id: " + findNewCustomer.customer_id() + ". Name: " + findNewCustomer.first_name() + " " + findNewCustomer.last_name() + ". Country: " + findNewCustomer.country() + ". Postal code: " + findNewCustomer.postal_code() + ". Phone number and e-mail address: " + findNewCustomer.phone() + ", " + findNewCustomer.email() + ".");
 
-        //Sami's part
-        int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
-        System.out.println(customerRepository.findById(uid));
-        customerRepository.deleteById(uid);
-        System.out.println("Customer with id " + uid + " will be deleted");
-        //Sami's part
+        removeCustomer();
 
+        System.out.println("");
+        getAllCustomers();
+    }
+
+    private void getAllCustomers() {
+        /**
+         * Print all customers neatly.
+         */
         List<Customer> newCustomerList = customerRepository.findAll();
         System.out.println("All customers:");
         for (Customer customer : newCustomerList) {
             System.out.println("Customer's id: " + customer.customer_id() + ". Name: " + customer.first_name() + " " + customer.last_name() + ". Country: " + customer.country() + ". Postal code: " + customer.postal_code() + ". Phone number and e-mail address: " + customer.phone() + ", " + customer.email() + ".");
         }
     }
+
+    private void customersTopGenre(){
+        Reader reader = new Reader();
+        int uid = parseInt(reader.read("Select the customer id whose most listened genre you want to see: "));
+        System.out.println(customerRepository.customerGenre(uid));
+    }
+    private  void updateCustomer(){
+        Reader reader = new Reader();
+        int uid = parseInt(reader.read("Select id which customer you want to update :"));
+        String num = reader.read("Update customer["+uid+"] phone number: ");
+        String name = reader.read("Update customer email: ");
+        customerRepository.update(uid,num,name);
+    }
+    private  void removeCustomer(){
+        Reader reader = new Reader();
+        int uid = parseInt(reader.read("Which customer will be deleted, give an customer id: "));
+        System.out.println(customerRepository.findById(uid));
+        customerRepository.deleteById(uid);
+        System.out.println("Customer with id " + uid + " will be deleted");
+    }
+
+
+//        System.out.println("");
+//        System.out.println("Country with the most customers: " + customerRepository.customersPerCountry());
+//        System.out.println("");
+//        System.out.println("Top Genre: " + customerRepository.customerGenre(2));
+//        System.out.println("");
+//        System.out.println("Update customer " + customerRepository.findById(2) + " successfully");
+//        customerRepository.update(2, "+358505005005", "samarin@eduskunta.fi");
+//        System.out.println("");
+//        System.out.println("Customer who is the highest spender: " + customerRepository.customerSpender());
 }
 
