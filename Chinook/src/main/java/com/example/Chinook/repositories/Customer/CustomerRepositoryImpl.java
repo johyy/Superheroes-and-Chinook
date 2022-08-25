@@ -191,6 +191,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public CustomerCountry customersPerCountry() {
+        /**
+         * Return the country with the most customers.
+         * @return customersPerCountry
+         */
         CustomerCountry customersPerCountry = null;
         String sql = "SELECT COUNT(customer_id) as total_customers, country FROM customer " +
                 "GROUP BY country ORDER BY COUNT(*) DESC LIMIT 1";
@@ -214,6 +218,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public CustomerSpender customerSpender() {
+        /**
+         * Return customer who is the highest spender (total in invoice table is the largest).
+         * @return customersSpender
+         */
         CustomerSpender customerSpender = null;
         String sql = "SELECT (customer.customer_id), customer.first_name, customer.last_name, SUM(invoice.total) as total\n" +
                 "FROM customer\n" +
@@ -240,7 +248,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public List<CustomerGenre> customerGenre(int Customer_id) {
-
+        /**
+         * For a given customer, return their most popular genre.
+         * @return customerMostPopGenre
+         */
         List<CustomerGenre> customerMostPopGenre = new ArrayList<>();
 
         String sql = "SELECT genre.name, customer.first_name, COUNT(genre.genre_id) AS top_genre\n" +
@@ -313,7 +324,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 }

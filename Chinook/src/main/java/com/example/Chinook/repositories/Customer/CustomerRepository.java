@@ -5,7 +5,6 @@ import com.example.Chinook.models.CustomerCountry;
 import com.example.Chinook.models.CustomerGenre;
 import com.example.Chinook.models.CustomerSpender;
 import com.example.Chinook.repositories.CRUDRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
